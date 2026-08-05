@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>睡眠時間記録アプリ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="hero">
+            <p class="label">Sleep Time Recorder</p>
+            <h1>睡眠時間記録アプリ</h1>
+            <p class="description">
+                就寝時刻と起床時刻を入力すると、睡眠時間を計算し、簡単なコメントを表示します。
+            </p>
+        </section>
+
+        <section class="card summary-card">
+            <div>
+                <p class="small-title">記録数</p>
+                <p class="summary-value">{{ summary.count }}件</p>
+            </div>
+            <div>
+                <p class="small-title">平均睡眠時間</p>
+                <p class="summary-value">{{ summary.average }}</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>睡眠を記録する</h2>
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            <form action="{{ url_for('add_record') }}" method="post" class="sleep-form">
+                <label>
+                    日付
+                    <input type="date" name="sleep_date" required>
+                </label>
+                <label>
+                    就寝時刻
+                    <input type="time" name="bedtime" required>
+                </label>
+                <label>
+                    起床時刻
+                    <input type="time" name="wake_time" required>
+                </label>
+                <label class="memo-label">
+                    メモ（任意）
+                    <input type="text" name="memo" placeholder="例：課題で寝るのが遅くなった">
+                </label>
+                <button type="submit">記録する</button>
+            </form>
+            <p class="note">
+                ※このアプリは学習課題用です。医療的な診断や治療を目的としたものではありません。
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>最近の記録</h2>
+            {% if records %}
+                <div class="record-list">
+                    {% for record in records %}
+                        <article class="record-item">
+                            <div class="record-main">
+                                <p class="record-date">{{ record.sleep_date }}</p>
+                                <h3>{{ record.duration }}</h3>
+                                <p>{{ record.bedtime }} 〜 {{ record.wake_time }}</p>
+                                <span class="badge">{{ record.status }}</span>
+                            </div>
+                            <div class="record-comment">
+                                <p>{{ record.comment }}</p>
+                                {% if record.memo %}
+                                    <p class="memo">メモ：{{ record.memo }}</p>
+                                {% endif %}
+                                <form action="{{ url_for('delete_record', record_id=record.id) }}" method="post">
+                                    <button class="delete-button" type="submit">削除</button>
+                                </form>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty">まだ記録がありません。最初の睡眠記録を入力してください。</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

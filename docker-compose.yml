@@ -1,0 +1,9 @@
+services:
+  sleep-app:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DB_DIR=/app/data
