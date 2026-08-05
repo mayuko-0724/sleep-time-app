@@ -108,7 +108,7 @@ http://localhost:8000
 以下にアプリの動作画面を示します。
 
 ```text
-<img width="710" height="841" alt="image" src="https://github.com/user-attachments/assets/5a66fa90-cb6f-4fc1-8c38-4a6923f1d3bb" />
+![動作画面](スクリーンショット.png)
 
 ```
 
