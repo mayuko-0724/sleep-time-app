@@ -60,6 +60,64 @@ Dockerコンテナ上で動作し、ホストPCのブラウザから利用でき
 - 記録数
 - 平均睡眠時間
 
+## 実行方法
+
+このアプリはDockerコンテナ上で動作します。
+
+事前にDocker Desktopを起動したうえで、以下の手順で実行します。
+
+### 1. リポジトリを取得する
+
+GitHubからソースコードを取得します。
+
+```bash
+git clone https://github.com/mayuko-0724/sleep-time-app.git
+```
+
+取得したフォルダに移動します。
+
+```bash
+cd sleep-time-app
+```
+
+### 2. Dockerコンテナを起動する
+
+以下のコマンドを実行します。
+
+```bash
+docker compose -p sleep-time-app up --build
+```
+
+このコマンドにより、Dockerイメージの作成、必要なライブラリのインストール、Flaskアプリの起動が行われます。
+
+起動中は、ターミナルにFlaskの実行ログが表示されます。  
+アプリを利用している間は、このターミナルを閉じずにそのままにします。
+
+### 3. ブラウザでアクセスする
+
+コンテナが起動した状態で、ブラウザから以下のURLにアクセスします。
+
+```text
+http://localhost:8000
+```
+
+睡眠時間記録アプリの画面が表示されれば、起動成功です。
+
+## 動作画面
+
+以下にアプリの動作画面を示します。
+
+```text
+## 動作画面
+
+以下にアプリの動作画面を示します。
+
+```text
+<img width="710" height="841" alt="image" src="https://github.com/user-attachments/assets/5a66fa90-cb6f-4fc1-8c38-4a6923f1d3bb" />
+
+```
+
+
 ## 使用技術
 
 - Python
